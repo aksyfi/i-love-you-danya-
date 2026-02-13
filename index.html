@@ -73,29 +73,35 @@
         }
 
         h1 {
-            font-size: 2.5rem; /* Размер сохранен */
+            font-size: 2.5rem;
             margin: 10px 15px;
             text-shadow: 0 0 20px rgba(255, 77, 141, 0.6);
-            transition: all 0.3s;
         }
 
         p {
             color: #ffb3d1;
-            font-size: 1.2rem; /* Размер сохранен */
+            font-size: 1.2rem;
             max-width: 350px;
             margin: 0 auto 50px auto;
             line-height: 1.4;
-            min-height: 1.4em; /* Чтобы текст не прыгал, если строка пустая */
+            min-height: 1.4em;
         }
 
+        /* КОНТЕЙНЕР: теперь кнопки привязаны к своим местам */
         .buttons-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
+            width: 400px;
+            height: 120px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .btn-slot {
+            display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            width: 100%;
-            height: 120px;
         }
 
         button {
@@ -103,14 +109,14 @@
             border: 3px solid #ff4d8d;
             color: #ff4d8d;
             font-family: 'Comfortaa', cursive;
-            font-size: 1.3rem; /* Размер сохранен */
+            font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
             outline: none;
             padding: 15px 35px;
             border-radius: 20px;
             box-shadow: 0 0 15px rgba(255, 77, 141, 0.3);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s ease, background 0.3s, color 0.3s;
         }
 
         #yesBtn:hover {
@@ -121,9 +127,10 @@
         }
 
         #noBtn {
-            position: relative;
             border-color: #ff85a2;
             color: #ff85a2;
+            z-index: 100;
+            transition: left 0.2s ease, top 0.2s ease; /* Для плавного убегания */
         }
 
         .final-photo {
@@ -164,8 +171,12 @@
         <p id="description">Согласен ли ты всегда быть моей половинкой??</p>
 
         <div class="buttons-container" id="btnContainer">
-            <button id="yesBtn" onclick="handleYes()">Да!</button>
-            <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Нет..</button>
+            <div class="btn-slot">
+                <button id="yesBtn" onclick="handleYes()">Да!</button>
+            </div>
+            <div class="btn-slot" id="noSlot">
+                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Нет..</button>
+            </div>
         </div>
     </div>
 
@@ -190,6 +201,7 @@
 
         function moveButton() {
             const btn = document.getElementById('noBtn');
+            
             if (btn.style.position !== 'fixed') {
                 const rect = btn.getBoundingClientRect();
                 btn.style.left = rect.left + 'px';
@@ -198,15 +210,22 @@
                 btn.style.margin = '0';
             }
 
-            setTimeout(() => {
-                const padding = 100;
-                const maxX = window.innerWidth - btn.offsetWidth - padding;
-                const maxY = window.innerHeight - btn.offsetHeight - padding;
-                const x = Math.max(padding, Math.floor(Math.random() * maxX));
-                const y = Math.max(padding, Math.floor(Math.random() * maxY));
-                btn.style.left = x + 'px';
-                btn.style.top = y + 'px';
-            }, 10);
+            const padding = 100;
+            const maxX = window.innerWidth - btn.offsetWidth - padding;
+            const maxY = window.innerHeight - btn.offsetHeight - padding;
+            
+            const x = Math.max(padding, Math.floor(Math.random() * maxX));
+            const y = Math.max(padding, Math.floor(Math.random() * maxY));
+            
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function resetNoButton() {
+            const btn = document.getElementById('noBtn');
+            btn.style.position = 'static'; 
+            btn.style.left = 'auto';
+            btn.style.top = 'auto';
         }
 
         function handleYes() {
@@ -215,9 +234,11 @@
             const desc = document.getElementById('description');
 
             if (stage === 1) {
+                resetNoButton();
                 title.innerText = "А ты точно меня любишь???....";
                 desc.innerText = "Подумай хорошенько...";
             } else if (stage === 2) {
+                resetNoButton();
                 title.innerText = "Точно? На все сто процентаф?..";
                 desc.innerText = "Отвечай честно!";
             } else {
