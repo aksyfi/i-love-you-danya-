@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dark Valentine</title>
+    <title>Eternal Love</title>
     <style>
-        /* Готический стиль */
+        /* Основной фон и готическая атмосфера */
         body {
             margin: 0;
             padding: 0;
@@ -14,95 +14,137 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-color: #0a0a0a; /* Глубокий черный */
-            color: #b30000; /* Кроваво-красный */
-            font-family: 'Georgia', serif;
+            background: radial-gradient(circle, #1a0000 0%, #050505 100%);
+            color: #b30000;
+            font-family: 'Times New Roman', serif;
             overflow: hidden;
             text-align: center;
         }
 
-        /* Мрачное пульсирующее сердце */
+        /* Виньетка (затемнение по краям) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+            pointer-events: none;
+        }
+
+        /* Анимированное сердце */
         .heart {
-            background-color: #800000;
+            background-color: #660000;
             display: inline-block;
-            height: 50px;
-            margin: 0 10px;
+            height: 60px;
+            margin-bottom: 30px;
             position: relative;
             transform: rotate(-45deg);
-            width: 50px;
-            animation: pulse 1.5s infinite;
-            box-shadow: 0 0 20px #ff0000;
+            width: 60px;
+            animation: beat 1.4s infinite;
+            filter: drop-shadow(0 0 15px #ff0000);
         }
 
         .heart:before, .heart:after {
             content: "";
-            background-color: #800000;
+            background-color: #660000;
             border-radius: 50%;
-            height: 50px;
+            height: 60px;
             position: absolute;
-            width: 50px;
+            width: 60px;
+        }
+        .heart:before { top: -30px; left: 0; }
+        .heart:after { left: 30px; top: 0; }
+
+        @keyframes beat {
+            0% { transform: rotate(-45deg) scale(1); }
+            10% { transform: rotate(-45deg) scale(1.1); }
+            100% { transform: rotate(-45deg) scale(1); }
         }
 
-        .heart:before { top: -25px; left: 0; }
-        .heart:after { left: 25px; top: 0; }
-
-        @keyframes pulse {
-            0% { transform: rotate(-45deg) scale(1); filter: brightness(1); }
-            50% { transform: rotate(-45deg) scale(1.1); filter: brightness(1.5); }
-            100% { transform: rotate(-45deg) scale(1); filter: brightness(1); }
+        h1 {
+            font-size: 2.8rem;
+            letter-spacing: 4px;
+            margin: 10px 0;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(179, 0, 0, 0.6);
         }
 
-        h1 { 
-            font-size: 2.2rem; 
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 5px #000;
-            margin-top: 20px;
+        p {
+            color: #666;
+            font-size: 1.2rem;
+            font-style: italic;
+            max-width: 500px;
         }
 
-        p { color: #888; font-style: italic; }
-
+        /* Кнопки без грубых рамок */
         .buttons {
-            margin-top: 50px;
+            margin-top: 60px;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
             position: relative;
+            min-height: 50px;
             width: 100%;
-            height: 150px;
         }
 
         button {
-            padding: 12px 25px;
-            font-size: 1rem;
-            border: 1px solid #b30000;
-            cursor: pointer;
-            transition: 0.3s;
+            background: none;
+            border: none;
+            color: #b30000;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.4rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            outline: none;
+            padding: 10px 20px;
         }
 
         #yesBtn {
-            background-color: #4d0000;
-            color: #ff4d4d;
+            text-shadow: 0 0 5px #b30000;
         }
 
         #yesBtn:hover {
-            background-color: #b30000;
-            color: black;
-            box-shadow: 0 0 15px #ff0000;
+            color: #ff4d4d;
+            text-shadow: 0 0 20px #ff0000;
+            transform: scale(1.1);
         }
 
         #noBtn {
-            background-color: transparent;
-            color: #444;
-            position: fixed; /* Чтобы не убегала за пределы видимости */
-            border-color: #333;
+            color: #333;
+            position: fixed; /* Для корректного побега */
+            z-index: 10;
         }
 
-        /* Стиль для гифки */
-        .cat-gif {
-            width: 250px;
-            border-radius: 10px;
+        /* Фото в конце */
+        .final-photo {
+            width: 320px;
             margin-top: 20px;
-            border: 2px solid #b30000;
-            box-shadow: 0 0 15px #b30000;
+            border-radius: 2px;
+            filter: sepia(0.2) contrast(1.1) brightness(0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,1), 0 0 15px rgba(179, 0, 0, 0.3);
+            border: 1px solid rgba(179, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Эффект падающих частиц */
+        .particle {
+            position: fixed;
+            top: -10px;
+            color: #440000;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
         }
     </style>
 </head>
@@ -110,15 +152,29 @@
 
     <div class="heart"></div>
     
-    <h1>Примешь мою темную душу?</h1>
-    <p>Станешь моим Валентином в этом мрачном мире?</p>
+    <h1>Твоё сердце...</h1>
+    <p>Согласен ли ты разделить эту вечность со мной?</p>
 
     <div class="buttons">
-        <button id="yesBtn" onclick="celebrate()">Да, навечно</button>
-        <button id="noBtn" onmouseover="moveButton()">Ни за что</button>
+        <button id="yesBtn" onclick="celebrate()">Да, согласен</button>
+        <button id="noBtn" onmouseover="moveButton()">Никогда</button>
     </div>
 
     <script>
+        // Создаем эффект падающих лепестков/частиц
+        function createParticle() {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.innerHTML = '●'; // Можно заменить на '❤' для разнообразия
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 10 + 5) + 'px';
+            p.style.opacity = Math.random();
+            p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 7000);
+        }
+        setInterval(createParticle, 300);
+
         function moveButton() {
             const btn = document.getElementById('noBtn');
             const padding = 100;
@@ -133,15 +189,15 @@
         }
 
         function celebrate() {
-            const body = document.querySelector('body');
-            body.innerHTML = `
+            document.body.innerHTML = `
                 <div class="heart"></div>
-                <h1>Теперь ты мой.</h1>
-                <p>Я знала, что наши сердца бьются в унисон...</p>
-                <img src="photo.jpg" alt="Our Photo" class="cat-gif">
+                <h1>Теперь мы одно целое</h1>
+                <p>Наша история только начинается...</p>
+                <img src="photo.jpg" alt="Love" class="final-photo">
             `;
+            // Меняем фон на чуть более светлый кровавый при нажатии
+            document.body.style.background = "radial-gradient(circle, #2a0000 0%, #000 100%)";
         }
     </script>
 </body>
 </html>
-
