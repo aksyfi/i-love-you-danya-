@@ -111,12 +111,22 @@
     <script>
         // Функция для "убегающей" кнопки
         function moveButton() {
-            const btn = document.getElementById('noBtn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+    const btn = document.getElementById('noBtn');
+    
+    // Ограничиваем область перемещения, чтобы кнопка не вылетала за экран
+    // Вычитаем 100 пикселей для запаса
+    const maxX = window.innerWidth - btn.offsetWidth - 50;
+    const maxY = window.innerHeight - btn.offsetHeight - 50;
+    
+    // Генерируем случайные координаты в пределах видимости
+    const x = Math.max(10, Math.floor(Math.random() * maxX));
+    const y = Math.max(10, Math.floor(Math.random() * maxY));
+    
+    // Устанавливаем новые координаты
+    btn.style.position = 'fixed'; // Фиксируем, чтобы работало везде одинаково
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+}
         }
 
         // Функция при нажатии на "ДА"
@@ -158,4 +168,5 @@
         document.head.appendChild(style);
     </script>
 </body>
+
 </html>
