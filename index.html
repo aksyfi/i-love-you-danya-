@@ -113,19 +113,23 @@
         function moveButton() {
     const btn = document.getElementById('noBtn');
     
-    // Ограничиваем область перемещения, чтобы кнопка не вылетала за экран
-    // Вычитаем 100 пикселей для запаса
-    const maxX = window.innerWidth - btn.offsetWidth - 50;
-    const maxY = window.innerHeight - btn.offsetHeight - 50;
+    // Вычисляем доступную область (отнимаем по 100 пикселей со всех сторон для безопасности)
+    const padding = 100;
+    const maxWidth = window.innerWidth - btn.offsetWidth - padding;
+    const maxHeight = window.innerHeight - btn.offsetHeight - padding;
+
+    // Генерируем координаты так, чтобы кнопка не прижималась к краям
+    // Math.random() * (max - min) + min
+    const randomX = Math.floor(Math.random() * (maxWidth - padding)) + padding;
+    const randomY = Math.floor(Math.random() * (maxHeight - padding)) + padding;
+
+    // Принудительно фиксируем кнопку в пределах видимости
+    btn.style.position = 'fixed';
+    btn.style.left = randomX + 'px';
+    btn.style.top = randomY + 'px';
     
-    // Генерируем случайные координаты в пределах видимости
-    const x = Math.max(10, Math.floor(Math.random() * maxX));
-    const y = Math.max(10, Math.floor(Math.random() * maxY));
-    
-    // Устанавливаем новые координаты
-    btn.style.position = 'fixed'; // Фиксируем, чтобы работало везде одинаково
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
+    // Добавим немного магии, чтобы она всегда была "поверх" всего
+    btn.style.zIndex = '1000';
 }
         }
 
@@ -170,3 +174,4 @@
 </body>
 
 </html>
+
