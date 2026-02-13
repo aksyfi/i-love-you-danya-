@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eternal Love</title>
+    <title>My Dark Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Основной фон и готическая атмосфера */
         body {
             margin: 0;
             padding: 0;
@@ -14,38 +14,43 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background: radial-gradient(circle, #1a0000 0%, #050505 100%);
-            color: #b30000;
-            font-family: 'Times New Roman', serif;
+            background: radial-gradient(circle at center, #4d0026 0%, #1a000d 40%, #050002 100%);
+            color: #ff4d8d;
+            font-family: 'Comfortaa', cursive;
             overflow: hidden;
             text-align: center;
         }
 
-        /* Виньетка (затемнение по краям) */
-        body::after {
-            content: "";
+        .fog {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+            top: 0; left: 0; width: 200%; height: 200%;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.3;
+            animation: moveFog 60s linear infinite;
             pointer-events: none;
         }
 
-        /* Анимированное сердце */
+        @keyframes moveFog {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-50%, -50%); }
+        }
+
         .heart {
-            background-color: #660000;
+            background-color: #ff1a75;
             display: inline-block;
             height: 60px;
             margin-bottom: 30px;
             position: relative;
             transform: rotate(-45deg);
             width: 60px;
-            animation: beat 1.4s infinite;
-            filter: drop-shadow(0 0 15px #ff0000);
+            animation: beat 1.4s infinite ease-in-out;
+            filter: drop-shadow(0 0 20px #ff4d8d);
+            z-index: 10;
         }
 
         .heart:before, .heart:after {
             content: "";
-            background-color: #660000;
+            background-color: #ff1a75;
             border-radius: 50%;
             height: 60px;
             position: absolute;
@@ -56,91 +61,87 @@
 
         @keyframes beat {
             0% { transform: rotate(-45deg) scale(1); }
-            10% { transform: rotate(-45deg) scale(1.1); }
+            50% { transform: rotate(-45deg) scale(1.1); }
             100% { transform: rotate(-45deg) scale(1); }
         }
 
         h1 {
-            font-size: 2.8rem;
-            letter-spacing: 4px;
-            margin: 10px 0;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(179, 0, 0, 0.6);
+            font-size: 2.5rem;
+            margin: 10px 15px;
+            text-shadow: 0 0 20px rgba(255, 77, 141, 0.6);
+            z-index: 10;
         }
 
         p {
-            color: #666;
+            color: #ffb3d1;
             font-size: 1.2rem;
-            font-style: italic;
-            max-width: 500px;
+            max-width: 80%;
+            margin-bottom: 50px;
+            z-index: 10;
         }
 
-        /* Кнопки без грубых рамок */
-        .buttons {
-            margin-top: 60px;
+        .buttons-container {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             justify-content: center;
+            align-items: center;
             position: relative;
-            min-height: 50px;
             width: 100%;
+            height: 120px;
+            z-index: 20;
         }
 
         button {
-            background: none;
-            border: none;
-            color: #b30000;
-            font-family: 'Times New Roman', serif;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            background: rgba(255, 20, 100, 0.1);
+            border: 3px solid #ff4d8d;
+            color: #ff4d8d;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.3rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.4s ease;
             outline: none;
-            padding: 10px 20px;
-        }
-
-        #yesBtn {
-            text-shadow: 0 0 5px #b30000;
+            padding: 15px 35px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(255, 77, 141, 0.3);
+            /* Плавность включена для всех изменений */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #yesBtn:hover {
-            color: #ff4d4d;
-            text-shadow: 0 0 20px #ff0000;
+            background: #ff4d8d;
+            color: #fff;
+            box-shadow: 0 0 30px #ff4d8d;
             transform: scale(1.1);
         }
 
         #noBtn {
-            color: #333;
-            position: fixed; /* Для корректного побега */
-            z-index: 10;
+            position: relative;
+            border-color: #ff85a2;
+            color: #ff85a2;
+            z-index: 30;
         }
 
-        /* Фото в конце */
         .final-photo {
-            width: 320px;
+            width: 350px;
+            max-width: 85%;
             margin-top: 20px;
-            border-radius: 2px;
-            filter: sepia(0.2) contrast(1.1) brightness(0.8);
-            box-shadow: 0 0 30px rgba(0,0,0,1), 0 0 15px rgba(179, 0, 0, 0.3);
-            border: 1px solid rgba(179, 0, 0, 0.2);
-            animation: fadeIn 2s ease-in;
+            border: 3px solid #ff4d8d;
+            box-shadow: 0 0 40px rgba(255, 77, 141, 0.5);
+            border-radius: 25px;
+            animation: reveal 1.5s ease-out forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes reveal {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        /* Эффект падающих частиц */
         .particle {
             position: fixed;
-            top: -10px;
-            color: #440000;
-            user-select: none;
+            top: -20px;
             pointer-events: none;
-            z-index: 0;
             animation: fall linear forwards;
+            z-index: 1;
         }
 
         @keyframes fall {
@@ -150,53 +151,72 @@
 </head>
 <body>
 
+    <div class="fog"></div>
     <div class="heart"></div>
     
-    <h1>Твоё сердце...</h1>
-    <p>Согласен ли ты разделить эту вечность со мной?</p>
+    <h1>Тьма или свет?</h1>
+    <p>Согласен ли ты всегда быть моей половинкой?</p>
 
-    <div class="buttons">
-        <button id="yesBtn" onclick="celebrate()">Да, согласен</button>
-        <button id="noBtn" onmouseover="moveButton()">Никогда</button>
+    <div class="buttons-container">
+        <button id="yesBtn" onclick="celebrate()">Да!</button>
+        <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Нет</button>
     </div>
 
     <script>
-        // Создаем эффект падающих лепестков/частиц
         function createParticle() {
             const p = document.createElement('div');
             p.classList.add('particle');
-            p.innerHTML = '●'; // Можно заменить на '❤' для разнообразия
+            const symbols = ['✨', '🥀', '✧', '❤', '🌸'];
+            p.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
             p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = (Math.random() * 10 + 5) + 'px';
-            p.style.opacity = Math.random();
-            p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            p.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            const colors = ['#ff4d8d', '#ffb3d1', '#800040'];
+            p.style.color = colors[Math.floor(Math.random() * colors.length)];
+            p.style.opacity = Math.random() * 0.7;
+            p.style.animationDuration = (Math.random() * 4 + 4) + 's';
             document.body.appendChild(p);
-            setTimeout(() => p.remove(), 7000);
+            setTimeout(() => p.remove(), 8000);
         }
         setInterval(createParticle, 300);
 
         function moveButton() {
             const btn = document.getElementById('noBtn');
-            const padding = 100;
-            const maxX = window.innerWidth - btn.offsetWidth - padding;
-            const maxY = window.innerHeight - btn.offsetHeight - padding;
             
-            const x = Math.max(padding, Math.floor(Math.random() * maxX));
-            const y = Math.max(padding, Math.floor(Math.random() * maxY));
-            
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
+            // Исправление резкого прыжка:
+            if (btn.style.position !== 'fixed') {
+                // 1. Берем текущие координаты кнопки на экране
+                const rect = btn.getBoundingClientRect();
+                btn.style.left = rect.left + 'px';
+                btn.style.top = rect.top + 'px';
+                // 2. Делаем её фиксированной, но на том же месте
+                btn.style.position = 'fixed';
+                btn.style.margin = '0';
+            }
+
+            // 3. Используем минимальную задержку, чтобы браузер понял, 
+            // что кнопка уже fixed, и плавно её передвинул
+            setTimeout(() => {
+                const padding = 100;
+                const maxX = window.innerWidth - btn.offsetWidth - padding;
+                const maxY = window.innerHeight - btn.offsetHeight - padding;
+                
+                const x = Math.max(padding, Math.floor(Math.random() * maxX));
+                const y = Math.max(padding, Math.floor(Math.random() * maxY));
+                
+                btn.style.left = x + 'px';
+                btn.style.top = y + 'px';
+            }, 10);
         }
 
         function celebrate() {
             document.body.innerHTML = `
-                <div class="heart"></div>
-                <h1>Теперь мы одно целое</h1>
-                <p>Наша история только начинается...</p>
+                <div class="fog"></div>
+                <div class="heart" style="animation: beat 1.2s infinite;"></div>
+                <h1>Люблю тебя!</h1>
+                <p>Теперь мы вместе навсегда...</p>
                 <img src="photo.jpg" alt="Love" class="final-photo">
             `;
-            // Меняем фон на чуть более светлый кровавый при нажатии
-            document.body.style.background = "radial-gradient(circle, #2a0000 0%, #000 100%)";
+            document.body.style.background = "radial-gradient(circle, #800040 0%, #1a000d 100%)";
         }
     </script>
 </body>
